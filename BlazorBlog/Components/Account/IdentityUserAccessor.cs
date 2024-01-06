@@ -1,4 +1,4 @@
-using BlazorBlog.Data;
+using BlazorBlog.Shared.Data;
 using Microsoft.AspNetCore.Identity;
 
 namespace BlazorBlog.Components.Account

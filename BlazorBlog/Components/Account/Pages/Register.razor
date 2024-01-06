@@ -5,7 +5,7 @@
 @using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
-@using BlazorBlog.Data
+@using BlazorBlog.Shared.Data
 
 @inject UserManager<ApplicationUser> UserManager
 @inject IUserStore<ApplicationUser> UserStore
@@ -27,6 +27,21 @@
             <h2>Create a new account.</h2>
             <hr />
             <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.FirstName" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label for="FirstName">First Name</label>
+                <ValidationMessage For="() => Input.FirstName" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.LastName" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label for="LastName">Last Name</label>
+                <ValidationMessage For="() => Input.LastName" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.DisplayName" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label for="DisplayName">Display Name</label>
+                <ValidationMessage For="() => Input.DisplayName" class="text-danger" />
+            </div>
             <div class="form-floating mb-3">
                 <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label for="email">Email</label>
@@ -106,7 +121,11 @@
     {
         try
         {
-            return Activator.CreateInstance<ApplicationUser>();
+            ApplicationUser newUser = Activator.CreateInstance<ApplicationUser>();
+                newUser.FirstName = Input.FirstName;
+                newUser.LastName = Input.LastName;
+                newUser.DisplayName = Input.DisplayName;
+            return newUser;
         }
         catch
         {
@@ -126,6 +145,16 @@
 
     private sealed class InputModel
     {
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; } = "";
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; } = "";
+        [Required]
+        [Display(Name = "Display Name")]
+        public string DisplayName { get; set; } = "";
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

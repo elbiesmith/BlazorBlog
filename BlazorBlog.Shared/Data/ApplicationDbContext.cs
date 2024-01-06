@@ -2,11 +2,10 @@ using BlazorBlog.Shared.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BlazorBlog.Data
+namespace BlazorBlog.Shared.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options)
     {
-
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -33,6 +32,4 @@ namespace BlazorBlog.Data
             base.OnModelCreating(modelBuilder);
         }
     }
-
-
 }

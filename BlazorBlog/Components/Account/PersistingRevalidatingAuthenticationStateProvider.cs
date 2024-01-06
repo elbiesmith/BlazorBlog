@@ -1,5 +1,5 @@
 using BlazorBlog.Client;
-using BlazorBlog.Data;
+using BlazorBlog.Shared.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;

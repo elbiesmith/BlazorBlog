@@ -21,9 +21,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Client\" />
-    <Folder Include="Services\Server\" />
-  </ItemGroup>
-
 </Project>

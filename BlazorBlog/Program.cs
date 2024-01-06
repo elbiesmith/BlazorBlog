@@ -1,7 +1,9 @@
 using BlazorBlog.Client.Pages;
 using BlazorBlog.Components;
 using BlazorBlog.Components.Account;
-using BlazorBlog.Data;
+using BlazorBlog.Shared.Data;
+using BlazorBlog.Shared.Services.Interfaces;
+using BlazorBlog.Shared.Services.Server;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,17 +30,27 @@ builder.Services.AddAuthentication(options =>
     })
     .AddIdentityCookies();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+builder.Services.AddScoped<IImageService, BasicImageService>();
+builder.Services.AddScoped<ISeedService, BasicSeedService>();
+builder.Services.AddScoped<ISlugService, BasicSlugService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<ITagService, TagService>();
 
 var app = builder.Build();
 
@@ -69,5 +81,8 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
+var seedService = app.Services.CreateScope().ServiceProvider.GetRequiredService<ISeedService>();
+await seedService.ManageDataAsync();
 
 app.Run();

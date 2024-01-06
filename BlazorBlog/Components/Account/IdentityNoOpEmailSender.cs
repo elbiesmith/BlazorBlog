@@ -1,4 +1,4 @@
-using BlazorBlog.Data;
+using BlazorBlog.Shared.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 

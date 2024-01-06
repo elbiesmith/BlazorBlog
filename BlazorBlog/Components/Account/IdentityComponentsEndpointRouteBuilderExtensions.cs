@@ -1,6 +1,6 @@
 using BlazorBlog.Components.Account.Pages;
 using BlazorBlog.Components.Account.Pages.Manage;
-using BlazorBlog.Data;
+using BlazorBlog.Shared.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
