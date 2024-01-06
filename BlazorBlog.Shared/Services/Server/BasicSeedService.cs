@@ -1,4 +1,5 @@
-﻿using BlazorBlog.Shared.Data;
+﻿using BlazorBlog.Shared.Models;
+using BlazorBlog.Shared.Data;
 using BlazorBlog.Shared.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

@@ -88,13 +88,14 @@ namespace BlazorBlog.Components.Account
             {
                 var userId = principal.FindFirst(options.ClaimsIdentity.UserIdClaimType)?.Value;
                 var email = principal.FindFirst(options.ClaimsIdentity.EmailClaimType)?.Value;
+                // var displayName = principal.FindFir
 
                 if (userId != null && email != null)
                 {
                     state.PersistAsJson(nameof(UserInfo), new UserInfo
                     {
                         UserId = userId,
-                        Email = email,
+                        Email = email
                     });
                 }
             }
